@@ -1,0 +1,9 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <ul class="list-group" >
+            <th:block th:each="message : ${messages}">
+                <li class="list-group-item"><a th:href="@{/profile/messages/{id}(id=${message.id})}" th:text="${message.from.fullName}"></a></li>
+            </th:block>
+        </ul>
+    </div>
+</main>

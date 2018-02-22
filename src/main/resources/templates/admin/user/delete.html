@@ -1,0 +1,21 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" name="fullName"  th:value="${user.getFullName()}" disabled="disabled"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Full Name</label>
+                        <input type="text" class="form-control" id="email" name="email"  th:value="${user.getEmail()}" disabled="disabled"/>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

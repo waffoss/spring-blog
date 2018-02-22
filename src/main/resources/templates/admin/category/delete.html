@@ -1,0 +1,15 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/admin/categories/delete/{id}(id=${category.id})}" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" th:value="${category.getName()}" disabled="disabled"/>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

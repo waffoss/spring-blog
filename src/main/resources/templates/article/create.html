@@ -1,0 +1,35 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/article/create}" method="post">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Title"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputState">Category</label>
+                        <select id="inputState" name="categoryId" class="form-control">
+                            <option selected="selected">Select...</option>
+                            <th:block th:each="category : ${categories}">
+                                <option th:value="${category.getId()}" th:text="${category.getName()}"></option>
+                            </th:block>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" id="tags" name="tagString" placeholder="Tags"/>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

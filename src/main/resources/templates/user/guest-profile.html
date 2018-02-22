@@ -1,0 +1,8 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a th:href="@{/message/send/{id}(id=${user.id})}"></a>
+        <span th:text="${user.email}"></span>
+        <span th:text="${user.fullName}"></span>
+        <a th:href="@{/profile/message/send/{id}(id=${user.id})}">Send Message</a>
+    </div>
+</main>

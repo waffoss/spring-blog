@@ -1,0 +1,28 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <th:block th:each="user : ${users}">
+                <tr th:class="${user.isAdmin()? 'table-danger':null}">
+                    <th scope="row" th:text="${user.getId()}"></th>
+                    <th th:text="${user.getFullName()}"></th>
+                    <th th:text="${user.getEmail()}"></th>
+                    <th>
+                        <a th:href="@{/admin/users/edit/{id}(id=${user.id})}">Edit</a>
+                        <a th:href="@{/admin/users/delete/{id}(id=${user.id})}">Delete</a>
+                    </th>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</main>

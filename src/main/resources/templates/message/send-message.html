@@ -1,0 +1,15 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form th:action="@{/profile/message/send/{id}(id=${user.id})}" method="post">
+                    <div class="form-group">
+                        <label for="message" th:text="'Message to ' + ${user.fullName}"></label>
+                        <input type="text" class="form-control" id="message" name="message" placeholder="Message"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

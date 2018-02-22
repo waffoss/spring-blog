@@ -1,0 +1,13 @@
+<main xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="'Message from ' + ${message.from.fullName}"></h5>
+                <!--<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>-->
+                <p class="card-text" th:text="${message.message}"></p>
+                <a th:href="@{/profile/message/send/{id}(id=${message.from.id})}" class="card-link" th:text="'Reply to ' + ${message.from.fullName}">Card link</a>
+                <!--<a href="#" class="card-link">Another link</a>-->
+            </div>
+        </div>
+    </div>
+</main>
