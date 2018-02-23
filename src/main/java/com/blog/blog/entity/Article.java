@@ -14,6 +14,7 @@ public class Article {
     private User author;
     private Category category;
     private Set<Tag> tags;
+    private Set<Comment> comments;
 
 
     public Article(String title, String content, User author, Category category, HashSet<Tag> tags) {
@@ -22,9 +23,20 @@ public class Article {
         this.author = author;
         this.category = category;
         this.tags = tags;
+        this.comments = new HashSet<>();
     }
 
     public Article() {
+    }
+
+
+    @OneToMany(mappedBy = "article")
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @ManyToMany

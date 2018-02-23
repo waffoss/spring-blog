@@ -16,6 +16,27 @@
                     <a  th:href="@{/article/delete/{id}(id=${article.id})}" class="card-link text-danger">Delete</a>
                 </th:block>
             </div>
+            <div class="card-footer" sec:authorize="isAuthenticated()">
+                <form th:action="@{/comment/add/{articleId}(articleId=${article.id})}" method="post">
+                    <div class="form-group">
+                        <label for="comment">Add comment</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                </form>
+            </div>
+        </div>
+        <p></p>
+        <div class="list-group">
+            <th:block th:each="comment : ${article.comments}">
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${comment.author.fullName}"></h5>
+                    </div>
+                    <p class="mb-1" th:text="${comment.content}"></p>
+
+                </div>
+            </th:block>
         </div>
     </div>
 </main>
