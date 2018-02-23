@@ -120,14 +120,24 @@ public class UserController {
         User user = this.userRepository.findOne(id);
 
         Set<User> followers = user.getFollowers();
+        Set<User> following = follower.getFollowing();
+
         if(followers.contains(follower)){
             followers.remove(follower);
         }else{
             followers.add(follower);
         }
 
+        if(following.contains(user)){
+            following.remove(user);
+        }else{
+            following.add(user);
+        }
+
         user.setFollowers(followers);
+        follower.setFollowing(following);
         this.userRepository.saveAndFlush(user);
+        this.userRepository.saveAndFlush(follower);
 
         return "redirect:/profile/"+id;
 

@@ -16,6 +16,7 @@ public class User {
     private Set<Role> roles;
     private Set<Article> articles;
     private Set<User> followers;
+    private Set<User> following;
 
 
     public User(String email, String fullName, String password) {
@@ -31,6 +32,16 @@ public class User {
     public User() {
     }
 
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_following")
+    public Set<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<User> following) {
+        this.following = following;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_followers")

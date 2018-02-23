@@ -1,14 +1,8 @@
 package com.blog.blog.controller;
 
 import com.blog.blog.bindingModel.ArticleBindingModel;
-import com.blog.blog.entity.Article;
-import com.blog.blog.entity.Category;
-import com.blog.blog.entity.Tag;
-import com.blog.blog.entity.User;
-import com.blog.blog.repository.ArticleRepository;
-import com.blog.blog.repository.CategoryRepository;
-import com.blog.blog.repository.TagRepository;
-import com.blog.blog.repository.UserRepository;
+import com.blog.blog.entity.*;
+import com.blog.blog.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -35,6 +29,8 @@ public class ArticleController {
     private CategoryRepository categoryRepository;
     @Autowired
     private TagRepository tagRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping("/article/create")
     @PreAuthorize("isAuthenticated()")
@@ -169,6 +165,10 @@ public class ArticleController {
 
         if (!isUserAuthorOrAdmin(article)) {
             return "redirect:/article/" + id;
+        }
+
+        for (Comment comment : article.getComments()) {
+            this.commentRepository.delete(comment);
         }
 
         this.articleRepository.delete(article);

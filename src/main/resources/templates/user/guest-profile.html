@@ -5,10 +5,10 @@
         <span th:text="${user.fullName}"></span>
         <th:block sec:authorize="isAuthenticated()">
             <a th:href="@{/profile/message/send/{id}(id=${user.id})}">Send Message</a>
-            <th:block th:if="${#sets.contains(user.getFollowers(),user)}">
+            <th:block th:if="${#sets.contains(user.getFollowing(),user)}">
                 <a th:href="@{/follow/{id}(id=${user.id})}">Unfollow</a>
             </th:block>
-            <th:block th:unless="${#sets.contains(user.getFollowers(),user)}">
+            <th:block th:unless="${#sets.contains(user.getFollowing(),user)}">
                 <a th:href="@{/follow/{id}(id=${user.id})}">Follow</a>
             </th:block>
         </th:block>

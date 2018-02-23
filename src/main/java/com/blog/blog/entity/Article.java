@@ -1,8 +1,18 @@
 package com.blog.blog.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Table(name = "articles")
@@ -16,6 +26,15 @@ public class Article {
     private Set<Tag> tags;
     private Set<Comment> comments;
 
+    @Column(nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
 
     public Article(String title, String content, User author, Category category, HashSet<Tag> tags) {
         this.title = title;
@@ -24,6 +43,9 @@ public class Article {
         this.category = category;
         this.tags = tags;
         this.comments = new HashSet<>();
+
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     public Article() {
@@ -95,6 +117,24 @@ public class Article {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     @Transient
