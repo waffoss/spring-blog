@@ -15,6 +15,7 @@ public class User {
     private String password;
     private Set<Role> roles;
     private Set<Article> articles;
+    private Set<User> followers;
 
 
     public User(String email, String fullName, String password) {
@@ -24,9 +25,21 @@ public class User {
 
         this.roles = new HashSet<>();
         this.articles = new HashSet<>();
+        this.followers = new HashSet<>();
     }
 
     public User() {
+    }
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_followers")
+    public Set<User> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<User> followers) {
+        this.followers = followers;
     }
 
     @OneToMany(mappedBy = "author")

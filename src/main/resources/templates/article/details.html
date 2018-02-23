@@ -29,7 +29,7 @@
         <p></p>
         <div class="list-group">
             <th:block th:each="comment : ${article.comments}">
-                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div th:class="${comment.author.id == article.author.id?'list-group-item list-group-item-action flex-column align-items-start active':'list-group-item list-group-item-action flex-column align-items-start'}">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1" th:text="${comment.author.fullName}"></h5>
                     </div>

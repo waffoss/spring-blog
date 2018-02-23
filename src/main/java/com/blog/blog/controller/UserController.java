@@ -21,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -105,6 +106,31 @@ public class UserController {
         model.addAttribute("view","message/message-list");
 
         return "base-layout";
+    }
+
+    @GetMapping("/follow/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String followProcess(@PathVariable Integer id){
+        if (!this.userRepository.exists(id)){
+            return "redirect:/";
+        }
+
+        UserDetails principle = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User follower = this.userRepository.findByEmail(principle.getUsername());
+        User user = this.userRepository.findOne(id);
+
+        Set<User> followers = user.getFollowers();
+        if(followers.contains(follower)){
+            followers.remove(follower);
+        }else{
+            followers.add(follower);
+        }
+
+        user.setFollowers(followers);
+        this.userRepository.saveAndFlush(user);
+
+        return "redirect:/profile/"+id;
+
     }
 
 }

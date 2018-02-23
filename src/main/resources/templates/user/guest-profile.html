@@ -3,6 +3,16 @@
         <a th:href="@{/message/send/{id}(id=${user.id})}"></a>
         <span th:text="${user.email}"></span>
         <span th:text="${user.fullName}"></span>
-        <a th:href="@{/profile/message/send/{id}(id=${user.id})}">Send Message</a>
+        <th:block sec:authorize="isAuthenticated()">
+            <a th:href="@{/profile/message/send/{id}(id=${user.id})}">Send Message</a>
+            <th:block th:if="${#sets.contains(user.getFollowers(),user)}">
+                <a th:href="@{/follow/{id}(id=${user.id})}">Unfollow</a>
+            </th:block>
+            <th:block th:unless="${#sets.contains(user.getFollowers(),user)}">
+                <a th:href="@{/follow/{id}(id=${user.id})}">Follow</a>
+            </th:block>
+        </th:block>
+
+        <p th:text="${#sets.size(user.getFollowers())} + ' followers'"></p>
     </div>
 </main>
